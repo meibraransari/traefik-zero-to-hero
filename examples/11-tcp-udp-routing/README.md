@@ -85,6 +85,29 @@ labels:
 
 ---
 
+## 🚀 Demo Time: Step-by-Step Practical
+
+**1. Start the Stack**
+```bash
+docker compose -f traefik-docker-compose.yml up -d
+docker compose -f postgres-docker-compose.yml up -d
+```
+
+**2. Test the TCP Routing**
+Attempt to connect to PostgreSQL through Traefik using `psql` or pgAdmin on port 5432!
+```bash
+psql -h 127.0.0.1 -p 5432 -U postgres
+```
+Traefik will receive the raw TCP connection on port 5432, route it to the PostgreSQL container, and stream the database traffic back and forth transparently.
+
+**3. Teardown**
+```bash
+docker compose -f postgres-docker-compose.yml down
+docker compose -f traefik-docker-compose.yml down
+```
+
+---
+
 ## 📁 Included Offline Example Stacks
 
 - 📄 [`traefik.yml`](./traefik.yml) — Static configuration with custom TCP/UDP entrypoints

@@ -61,6 +61,31 @@ spec:
 
 ---
 
+## 🚀 Demo Time: Step-by-Step Practical
+
+**1. Apply the Manifests (Requires a K8s/K3s cluster)**
+```bash
+kubectl apply -f 01-deployment.yaml
+kubectl apply -f 02-ingressroute.yaml
+kubectl apply -f 03-middleware.yaml
+```
+
+**2. Test the IngressRoute**
+Traefik is monitoring the Kubernetes API. The moment you apply `02-ingressroute.yaml`, Traefik dynamically builds the route.
+```bash
+curl -H Host:k8s.example.com http://<your-cluster-ip>
+```
+You will hit your Kubernetes service smoothly, fully load-balanced across your pods!
+
+**3. Teardown**
+```bash
+kubectl delete -f 01-deployment.yaml
+kubectl delete -f 02-ingressroute.yaml
+kubectl delete -f 03-middleware.yaml
+```
+
+---
+
 ## 📁 Included Offline Example Stacks
 
 - 📄 [`01-deployment.yaml`](./01-deployment.yaml) — Kubernetes App Deployment & Service

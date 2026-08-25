@@ -72,6 +72,27 @@ http:
 
 ---
 
+## 🚀 Demo Time: Step-by-Step Practical
+
+**1. Start the Stack**
+```bash
+docker compose -f canary-docker-compose.yml up -d
+```
+
+**2. Test Canary Traffic Splitting**
+Spam a curl request to your application endpoint:
+```bash
+for i in {1..10}; do curl -s -H Host:app.example.com http://127.0.0.1; done
+```
+**Output Expectation:** If your weights are 90/10, you should see 9 responses from `app-v1` and exactly 1 response from `app-v2`. The traffic is mathematically split!
+
+**3. Teardown**
+```bash
+docker compose -f canary-docker-compose.yml down
+```
+
+---
+
 ## 📁 Included Offline Example Stacks
 
 - 📄 [`dynamic-canary.yml`](./dynamic-canary.yml) — Canary weighted routing config

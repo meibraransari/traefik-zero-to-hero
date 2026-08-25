@@ -64,6 +64,28 @@ labels:
 
 ---
 
+## 🚀 Demo Time: Step-by-Step Practical
+
+**1. Start the Stack**
+```bash
+docker compose -f traefik-docker-compose.yml up -d
+docker compose -f whoami-docker-compose.yml up -d
+```
+
+**2. Test the Authentication**
+Open your browser and navigate to `http://whoami.example.com` (Ensure your `/etc/hosts` file maps this to `127.0.0.1`). 
+- A popup will appear asking for a Username and Password!
+- Enter the credentials defined in the labels (or the `users_credentials` file).
+- E.g., Username: `user`, Password: `password`
+
+**3. Teardown**
+```bash
+docker compose -f whoami-docker-compose.yml down
+docker compose -f traefik-docker-compose.yml down
+```
+
+---
+
 ## 📁 Included Offline Example Stacks
 
 - 📄 [`users_credentials`](./users_credentials) — File containing hashed passwords

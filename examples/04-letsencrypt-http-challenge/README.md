@@ -69,6 +69,31 @@ labels:
 
 ---
 
+## 🚀 Demo Time: Step-by-Step Practical
+
+⚠️ **Prerequisite:** This requires your server to be accessible from the public internet on Port 80, and a real domain name pointed to your server's public IP!
+
+**1. Prepare the Configuration**
+- Edit `traefik.yml` and replace `your-email@example.com` with your actual email.
+- Edit `whoami-docker-compose.yml` and replace `app.example.com` with your real domain.
+
+**2. Start the Stack**
+```bash
+docker compose -f traefik-docker-compose.yml up -d
+docker compose -f whoami-docker-compose.yml up -d
+```
+
+**3. Test the Secure Connection**
+Open your browser and navigate to `https://app.yourdomain.com`. You should see the glorious green padlock indicating a valid Let's Encrypt SSL certificate!
+
+**4. Teardown**
+```bash
+docker compose -f whoami-docker-compose.yml down
+docker compose -f traefik-docker-compose.yml down
+```
+
+---
+
 ## 📁 Included Offline Example Stacks
 
 - 📄 [`traefik.yml`](./traefik.yml) — Static config with HTTP challenge resolver

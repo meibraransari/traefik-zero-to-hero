@@ -82,6 +82,30 @@ labels:
 
 ---
 
+## 🚀 Demo Time: Step-by-Step Practical
+
+**1. Start the Stack**
+```bash
+docker compose -f traefik-docker-compose.yml up -d
+docker compose -f ratelimit-app-docker-compose.yml up -d
+```
+
+**2. Test the Rate Limiter**
+Bombard the app with requests in a loop:
+```bash
+for i in {1..200}; do curl -s -o /dev/null -w "%{http_code}
+" -H Host:ratelimit.example.com http://127.0.0.1; done
+```
+**Output Expectation:** The first 100 requests will return `200 OK`. Immediately after, you will see Traefik throw `429 Too Many Requests`, proving your shield is active and protecting the backend!
+
+**3. Teardown**
+```bash
+docker compose -f ratelimit-app-docker-compose.yml down
+docker compose -f traefik-docker-compose.yml down
+```
+
+---
+
 ## 📁 Included Offline Example Stacks
 
 - 📄 [`traefik.yml`](./traefik.yml) — Base static config

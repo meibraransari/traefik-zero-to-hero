@@ -111,6 +111,24 @@ accessLog:
 
 ---
 
+## 🚀 Demo Time: Step-by-Step Practical
+
+**1. Start the Stack**
+```bash
+docker compose -f observability-docker-compose.yml up -d
+```
+
+**2. Test the Control Room**
+- **Grafana:** Navigate to `http://localhost:3000`. You will see pre-built dashboards showing request rates, 404 errors, and latency charts.
+- **Jaeger:** Navigate to `http://localhost:16686`. Send a few web requests to your apps, then search Jaeger to see a visual timeline of exactly how long Traefik took to process the request!
+
+**3. Teardown**
+```bash
+docker compose -f observability-docker-compose.yml down
+```
+
+---
+
 ## 📁 Included Offline Example Stacks
 
 - 📄 [`traefik.yml`](./traefik.yml) — Production static config with metrics & tracing

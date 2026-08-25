@@ -58,6 +58,33 @@ python diag-inspect-acme.py ../05-letsencrypt-dns-challenge-cloudflare/acme.json
 
 ---
 
+## 🚀 Demo Time: Step-by-Step Practical
+
+**1. Start the Debug Stack**
+```bash
+docker compose -f traefik-debug-docker-compose.yml up -d
+```
+
+**2. Inspect the ACME JSON (Certificates)**
+Run the included python script to safely parse your SSL certificates without corrupting the file:
+```bash
+python diag-inspect-acme.py ../05-letsencrypt-dns-challenge-cloudflare/acme.json
+```
+This will print out all domains that Traefik successfully acquired SSL certificates for.
+
+**3. Read the Debug Logs**
+```bash
+docker logs -f traefik
+```
+Watch the real-time debug output as requests hit the proxy to understand exactly how routers and middlewares are evaluated.
+
+**4. Teardown**
+```bash
+docker compose -f traefik-debug-docker-compose.yml down
+```
+
+---
+
 ## 📁 Included Offline Example Stacks
 
 - 📄 [`traefik-debug.yml`](./traefik-debug.yml) — Configuration with DEBUG level logging

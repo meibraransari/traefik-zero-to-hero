@@ -60,6 +60,25 @@ labels:
 
 ---
 
+## 🚀 Demo Time: Step-by-Step Practical
+
+**1. Start the Stack**
+```bash
+docker compose -f traefik-tailscale-docker-compose.yml up -d
+```
+
+**2. Test the Secret Tunnel**
+Ensure your local machine is connected to your Tailnet. 
+Navigate to `https://internal-app.machine-name.ts.net`.
+You will connect to the application over your private encrypted mesh network with a perfectly valid Let's Encrypt certificate generated dynamically by Tailscale!
+
+**3. Teardown**
+```bash
+docker compose -f traefik-tailscale-docker-compose.yml down
+```
+
+---
+
 ## 📁 Included Offline Example Stacks
 
 - 📄 [`traefik.yml`](./traefik.yml) — Static config with Tailscale resolver

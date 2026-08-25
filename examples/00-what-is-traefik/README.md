@@ -92,4 +92,14 @@ Traefik cleanly separates configuration into two types:
 
 ---
 
+## 🚀 Demo Time: Step-by-Step Practical
+
+This chapter is purely theoretical to explain the architecture. However, to see Traefik in action, you can peek ahead to Chapter 01!
+
+**What to do next:**
+Move on to `01-docker-routing` where we will spin up our very first Traefik proxy and route traffic to a dummy application.
+
+---
+
+
 [🏠 Master Index](../../README.md) | [➡️ Next: Chapter 01 — Docker Routing](../01-docker-routing/README.md)

@@ -51,6 +51,36 @@ labels:
   - "traefik.http.services.my-app.loadbalancer.server.port=80"
 ```
 
+## 🚀 Demo Time: Step-by-Step Practical
+
+**1. Start the Stack**
+Open your terminal in this chapter's folder and run:
+```bash
+docker compose -f traefik-docker-compose.yml up -d
+docker compose -f whoami-docker-compose.yml up -d
+```
+
+**2. Test the Routing**
+Open your browser or run:
+```bash
+curl -H Host:whoami.example.com http://127.0.0.1
+```
+*(Note: If you don't have a local DNS or `/etc/hosts` entry for `whoami.example.com`, the `curl` command with the Host header perfectly simulates a real browser request!)*
+
+**3. What Just Happened?**
+- You sent an HTTP request on Port 80 to your local machine.
+- Traefik intercepted it, read the `Host: whoami.example.com` header.
+- Traefik looked at the Docker daemon, found the container with the matching label `traefik.http.routers.whoami.rule=Host(\`whoami.example.com\`)`.
+- Traefik seamlessly forwarded the traffic to that container and returned the response.
+
+**4. Teardown**
+```bash
+docker compose -f whoami-docker-compose.yml down
+docker compose -f traefik-docker-compose.yml down
+```
+
+---
+
 ## 📁 Included Offline Example Stacks
 
 - 📄 [`traefik.yml`](./traefik.yml) — Basic static config

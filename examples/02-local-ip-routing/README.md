@@ -60,6 +60,28 @@ http:
           - url: "http://192.168.1.254:80"
 ```
 
+## 🚀 Demo Time: Step-by-Step Practical
+
+**1. Start the Stack**
+Open your terminal in this chapter's folder and run:
+```bash
+docker compose -f traefik-docker-compose.yml up -d
+```
+
+**2. Test the Routing**
+Run the following curl command:
+```bash
+curl -H Host:router.example.com http://127.0.0.1
+```
+*(Ensure you modify `dynamic_conf/my-external-app.yml` to point to a real IP address on your LAN that serves a webpage, otherwise you will get a 502 Bad Gateway).*
+
+**3. Teardown**
+```bash
+docker compose -f traefik-docker-compose.yml down
+```
+
+---
+
 ## 📁 Included Offline Example Stacks
 
 - 📄 [`traefik.yml`](./traefik.yml) — Configured to watch the `dynamic_conf` directory

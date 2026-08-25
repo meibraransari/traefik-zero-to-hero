@@ -67,6 +67,27 @@ entryPoints:
     address: ":443"
 ```
 
+## 🚀 Demo Time: Step-by-Step Practical
+
+**1. Start the Stack**
+```bash
+docker compose -f traefik-docker-compose.yml up -d
+```
+
+**2. Test the Redirect**
+Run a verbose curl request to port 80:
+```bash
+curl -v http://127.0.0.1
+```
+**Output Expectation:** You should receive an `HTTP/1.1 301 Moved Permanently` response, with a `Location: https://127.0.0.1/` header, proving Traefik is actively forcing traffic to HTTPS globally.
+
+**3. Teardown**
+```bash
+docker compose -f traefik-docker-compose.yml down
+```
+
+---
+
 ## 📁 Included Offline Example Stacks
 
 - 📄 [`traefik.yml`](./traefik.yml) — Static config with global entrypoint redirection

@@ -72,6 +72,24 @@ labels:
 
 ---
 
+## 🚀 Demo Time: Step-by-Step Practical
+
+**1. Start the Stack**
+```bash
+docker compose -f mtls-docker-compose.yml up -d
+```
+
+**2. Test the mTLS Rejection**
+Try to visit your application in a normal web browser. 
+**Output Expectation:** You will receive an immediate SSL connection error (`ERR_BAD_SSL_CLIENT_AUTH_CERT`). Traefik drops the connection at the TLS handshake level because your browser didn't present the highly classified client certificate!
+
+**3. Teardown**
+```bash
+docker compose -f mtls-docker-compose.yml down
+```
+
+---
+
 ## 📁 Included Offline Example Stacks
 
 - 📄 [`traefik.yml`](./traefik.yml) — Static config with certificates directory

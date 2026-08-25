@@ -73,6 +73,25 @@ labels:
 
 ---
 
+## 🚀 Demo Time: Step-by-Step Practical
+
+**1. Start the Stack**
+```bash
+docker compose -f authelia-docker-compose.yml up -d
+```
+
+**2. Test the VIP SSO Experience**
+Navigate to `https://secure-app.yourdomain.com`. 
+Traefik will intercept the request and redirect you to the Authelia login portal (`https://auth.yourdomain.com`).
+Log in using Authelia credentials. Authelia will drop an SSO cookie in your browser and redirect you back to the secure app. You are now authenticated globally!
+
+**3. Teardown**
+```bash
+docker compose -f authelia-docker-compose.yml down
+```
+
+---
+
 ## 📁 Included Offline Example Stacks
 
 - 🐳 [`authelia-docker-compose.yml`](./authelia-docker-compose.yml) — Authelia portal + Protected app stack

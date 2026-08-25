@@ -66,6 +66,25 @@ labels:
 
 ---
 
+## 🚀 Demo Time: Step-by-Step Practical
+
+**1. Start the Production Stack**
+```bash
+docker compose -f traefik-docker-compose.yml up -d
+docker compose -f docker-compose.apps.yml up -d
+```
+
+**2. Test the Secure Dashboard**
+Navigate to `https://traefik.yourdomain.com`. You will be prompted for BasicAuth. Enter the credentials from the `users_credentials` file. Once inside, you have full visibility into the production routing matrix!
+
+**3. Teardown**
+```bash
+docker compose -f docker-compose.apps.yml down
+docker compose -f traefik-docker-compose.yml down
+```
+
+---
+
 ## 📁 Included Offline Example Stacks
 
 - 📄 [`traefik.yml`](./traefik.yml) — Production static config

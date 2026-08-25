@@ -45,6 +45,15 @@ traefik . http . routers . my-app . rule = Host(`app.com`)
 
 ---
 
+## 🚀 Demo Time: Step-by-Step Practical
+
+This chapter acts as a reference library. There is no stack to deploy here!
+
+**What to do next:**
+Keep the `CHEAT_SHEET.md` open in a side panel whenever you are building a new `docker-compose.yml` file to quickly copy-paste labels and syntax.
+
+---
+
 ## 📁 Included Offline Example Stacks
 
 - 📄 [`CHEAT_SHEET.md`](./CHEAT_SHEET.md) — Comprehensive offline label and syntax reference

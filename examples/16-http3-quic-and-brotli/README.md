@@ -69,6 +69,25 @@ http:
 
 ---
 
+## 🚀 Demo Time: Step-by-Step Practical
+
+**1. Start the Stack**
+```bash
+docker compose -f traefik-docker-compose.yml up -d
+```
+
+**2. Test HTTP/3 (QUIC)**
+Open Chrome/Firefox Developer Tools (F12) -> Network tab. 
+Visit your HTTPS domain. Check the `Protocol` column. 
+**Output Expectation:** It should say `h3` (HTTP/3) instead of `h2` or `http/1.1`. You are now successfully serving traffic over UDP!
+
+**3. Teardown**
+```bash
+docker compose -f traefik-docker-compose.yml down
+```
+
+---
+
 ## 📁 Included Offline Example Stacks
 
 - 📄 [`traefik.yml`](./traefik.yml) — Static config enabling HTTP/3 and QUIC

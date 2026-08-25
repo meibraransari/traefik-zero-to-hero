@@ -79,6 +79,24 @@ labels:
 
 ---
 
+## 🚀 Demo Time: Step-by-Step Practical
+
+**1. Start the Stack**
+```bash
+docker compose -f crowdsec-docker-compose.yml up -d
+```
+
+**2. Test the Security Bouncer**
+Simulate a malicious attack (e.g., trying to exploit a known vulnerability or running a dirbusting scan against your server).
+CrowdSec will parse the Traefik logs, identify the malicious behavior, and instruct the Traefik bouncer plugin to instantly drop all further connections from your IP with a `403 Forbidden`!
+
+**3. Teardown**
+```bash
+docker compose -f crowdsec-docker-compose.yml down
+```
+
+---
+
 ## 📁 Included Offline Example Stacks
 
 - 📄 [`traefik.yml`](./traefik.yml) — Static config with plugin declaration

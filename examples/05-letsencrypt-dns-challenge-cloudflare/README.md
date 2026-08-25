@@ -73,6 +73,30 @@ labels:
 
 ---
 
+## 🚀 Demo Time: Step-by-Step Practical
+
+⚠️ **Prerequisite:** You need a registered domain name managed by Cloudflare DNS, and a valid Cloudflare API Token.
+
+**1. Prepare the Environment**
+Rename `.env.example` to `.env` and insert your Cloudflare API Email and API Key.
+
+**2. Start the Stack**
+```bash
+docker compose -f traefik-docker-compose.yml up -d
+docker compose -f whoami-docker-compose.yml up -d
+```
+
+**3. Test the Wildcard SSL**
+Open `https://app.yourdomain.com`. Look at the SSL certificate details in your browser; you will see it was issued for `*.yourdomain.com`!
+
+**4. Teardown**
+```bash
+docker compose -f whoami-docker-compose.yml down
+docker compose -f traefik-docker-compose.yml down
+```
+
+---
+
 ## 📁 Included Offline Example Stacks
 
 - 📄 [`traefik.yml`](./traefik.yml) — Static config with Cloudflare DNS resolver
