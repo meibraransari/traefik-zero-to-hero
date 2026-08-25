@@ -1,7 +1,6 @@
 # 🚀 Traefik — Zero to Hero Guide
 
 > **A complete, offline-first, example-driven learning curriculum to master Traefik v2 & v3**  
-> Based on [DoTheEvo/Traefik-v2-examples](https://github.com/DoTheEvo/Traefik-v2-examples) + official Traefik documentation + production extensions.
 
 ![Traefik Architecture](./images/traefik_architecture_overview.jpg)
 
