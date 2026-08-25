@@ -1,0 +1,9 @@
+http:
+  middlewares:
+    compress-brotli:
+      compress:
+        includedContentTypes:
+          - text/html
+          - text/css
+          - application/javascript
+          - application/json

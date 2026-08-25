@@ -1,0 +1,11 @@
+http:
+  routers:
+    router-external:
+      rule: "Host(`router.example.com`)"
+      service: "service-external"
+
+  services:
+    service-external:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.50:80" # Replace with your real LAN IP

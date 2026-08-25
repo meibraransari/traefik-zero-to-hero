@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  app:
+    image: traefik/whoami
+    container_name: app-brotli
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.app-brotli.rule=Host(`http3.example.com`)"
+      - "traefik.http.routers.app-brotli.middlewares=compress-brotli@file"

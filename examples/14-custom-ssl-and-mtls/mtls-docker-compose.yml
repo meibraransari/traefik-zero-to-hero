@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  secure-app:
+    image: traefik/whoami
+    container_name: secure-app
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.secure-app.rule=Host(`mtls.example.com`)"
+      - "traefik.http.routers.secure-app.entrypoints=websecure"
+      - "traefik.http.routers.secure-app.tls=true"
+      - "traefik.http.routers.secure-app.tls.options=default"

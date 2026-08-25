@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  traefik:
+    image: traefik:v3.0
+    container_name: traefik-tailscale
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "/var/run/tailscale/tailscaled.sock:/var/run/tailscale/tailscaled.sock"
+      - "./traefik.yml:/etc/traefik/traefik.yml"
+
+  internal-app:
+    image: traefik/whoami
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.internal.rule=Host(`internal-app.machine-name.ts.net`)"
+      - "traefik.http.routers.internal.tls.certresolver=myresolver"

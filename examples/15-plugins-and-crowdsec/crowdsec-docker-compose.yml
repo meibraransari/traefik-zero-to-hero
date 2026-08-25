@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  crowdsec:
+    image: crowdsecurity/crowdsec:latest
+    container_name: crowdsec
+    environment:
+      - COLLECTIONS=crowdsecurity/traefik
+    volumes:
+      - crowdsec-db:/var/lib/crowdsec/data/
+      - crowdsec-config:/etc/crowdsec/
+    security_opt:
+      - no-new-privileges=true
+
+  whoami-target:
+    image: traefik/whoami
+    container_name: whoami-target
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami-target.rule=Host(`secure.example.com`)"
+      - "traefik.http.routers.whoami-target.middlewares=crowdsec-bouncer@file"
+
+volumes:
+  crowdsec-db:
+  crowdsec-config:

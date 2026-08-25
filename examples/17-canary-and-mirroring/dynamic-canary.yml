@@ -1,0 +1,14 @@
+http:
+  routers:
+    canary-router:
+      rule: "Host(`app.example.com`)"
+      service: "canary-service"
+
+  services:
+    canary-service:
+      weighted:
+        services:
+          - name: app-v1@docker
+            weight: 9
+          - name: app-v2@docker
+            weight: 1

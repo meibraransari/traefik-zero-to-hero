@@ -1,0 +1,7 @@
+providers:
+  docker:
+    exposedByDefault: false
+
+certificatesResolvers:
+  myresolver:
+    tailscale: {}

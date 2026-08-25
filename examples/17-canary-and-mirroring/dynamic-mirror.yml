@@ -1,0 +1,13 @@
+http:
+  routers:
+    mirror-router:
+      rule: "Host(`mirror.example.com`)"
+      service: "app-v1@docker"
+      middlewares:
+        - "traffic-mirror"
+
+  middlewares:
+    traffic-mirror:
+      mirroring:
+        service: "app-v2@docker"
+        percent: 10

@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  app-v1:
+    image: traefik/whoami
+    container_name: app-v1
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.app-v1.loadbalancer.server.port=80"
+
+  app-v2:
+    image: traefik/whoami
+    container_name: app-v2
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.app-v2.loadbalancer.server.port=80"
