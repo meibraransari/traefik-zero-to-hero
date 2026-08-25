@@ -1,0 +1,18 @@
+## STATIC CONFIGURATION WITH FILE-BASED CUSTOM SSL & MTLS
+log:
+  level: INFO
+
+entryPoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ":443"
+
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false
+    network: traefik_net
+  file:
+    directory: "/dynamic_conf"
+    watch: true

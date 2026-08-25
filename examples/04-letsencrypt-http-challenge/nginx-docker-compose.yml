@@ -1,0 +1,17 @@
+version: "3.7"
+
+services:
+  nginx:
+    image: "nginx:latest"
+    container_name: "nginx"
+    hostname: "nginx"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nginx.entrypoints=websecure"
+      - "traefik.http.routers.nginx.rule=Host(`nginx.$MY_DOMAIN`)"
+      - "traefik.http.routers.nginx.tls.certresolver=lets-encr"
+
+networks:
+  default:
+    external:
+      name: $DEFAULT_NETWORK

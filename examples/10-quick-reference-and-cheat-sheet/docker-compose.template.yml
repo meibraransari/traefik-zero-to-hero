@@ -1,0 +1,36 @@
+version: "3.7"
+
+# ==============================================================================
+# GENERIC DOCKER APPLICATION TEMPLATE WITH FULL TRAEFIK LABELS
+# ==============================================================================
+
+services:
+  app:
+    image: "my-app:latest"
+    container_name: "my-app"
+    restart: unless-stopped
+    # environment:
+    #   - ENV_VAR=value
+    # volumes:
+    #   - ./data:/data
+    labels:
+      # 1. Enable Traefik
+      - "traefik.enable=true"
+      - "traefik.docker.network=$DEFAULT_NETWORK"
+
+      # 2. Router Configuration (HTTPS)
+      - "traefik.http.routers.my-app.entrypoints=websecure"
+      - "traefik.http.routers.my-app.rule=Host(`app.$MY_DOMAIN`)"
+      - "traefik.http.routers.my-app.tls=true"
+      - "traefik.http.routers.my-app.tls.certresolver=lets-encr"
+
+      # 3. Attach Middlewares (comma-separated, evaluated left-to-right)
+      - "traefik.http.routers.my-app.middlewares=sec-headers@file,mw-compress@file"
+
+      # 4. Service Target Port (uncomment if container listens on non-80 port)
+      # - "traefik.http.services.my-app.loadbalancer.server.port=8080"
+
+networks:
+  default:
+    external:
+      name: $DEFAULT_NETWORK

@@ -1,0 +1,11 @@
+## DYNAMIC CROWDSEC BOUNCER MIDDLEWARE
+http:
+  middlewares:
+    crowdsec-bouncer:
+      plugin:
+        crowdsec:
+          enabled: true
+          crowdsecMode: live
+          crowdsecLapiKey: "replace_with_crowdsec_lapi_key"
+          crowdsecLapiHost: "crowdsec:8080"
+          crowdsecLapiScheme: "http"

@@ -1,0 +1,17 @@
+version: "3.7"
+
+services:
+  apache:
+    image: "httpd:latest"
+    container_name: "apache"
+    hostname: "apache"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.apache.entrypoints=websecure"
+      - "traefik.http.routers.apache.rule=Host(`$MY_DOMAIN`)"
+      - "traefik.http.routers.apache.tls.certresolver=lets-encr"
+
+networks:
+  default:
+    external:
+      name: $DEFAULT_NETWORK

@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+  postgres:
+    image: "postgres:16-alpine"
+    container_name: "postgres"
+    environment:
+      POSTGRES_DB: mydb
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mysecretpassword
+    labels:
+      - "traefik.enable=true"
+      # TCP Router with TLS Termination via SNI
+      - "traefik.tcp.routers.postgres.entrypoints=postgres"
+      - "traefik.tcp.routers.postgres.rule=HostSNI(`postgres.$MY_DOMAIN`)"
+      - "traefik.tcp.routers.postgres.tls=true"
+      - "traefik.tcp.routers.postgres.tls.certresolver=lets-encr"
+      - "traefik.tcp.services.postgres.loadbalancer.server.port=5432"
+
+networks:
+  default:
+    external:
+      name: $DEFAULT_NETWORK

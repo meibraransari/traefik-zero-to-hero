@@ -1,0 +1,35 @@
+## DEBUG & DIAGNOSTIC STATIC CONFIGURATION
+log:
+  level: DEBUG          # Shows full router evaluation and ACME logs
+
+accessLog:
+  filePath: "/var/log/traefik/access.log"
+  format: json
+  filters:
+    statusCodes:
+      - "400-499"     # Log all 4xx client errors
+      - "500-599"     # Log all 5xx server errors
+
+api:
+  insecure: true        # Direct access to port 8080 during diagnostics
+  dashboard: true
+
+entryPoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ":443"
+
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false
+
+certificatesResolvers:
+  lets-encr-staging:
+    acme:
+      caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
+      email: test@example.com
+      storage: /acme.json
+      httpChallenge:
+        entryPoint: web

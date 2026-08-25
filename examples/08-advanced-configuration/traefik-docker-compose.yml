@@ -1,0 +1,33 @@
+version: "3.7"
+
+services:
+  traefik:
+    image: "traefik:v2.11"
+    container_name: "traefik"
+    restart: unless-stopped
+    hostname: "traefik"
+    env_file:
+      - .env
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./traefik.yml:/traefik.yml:ro"
+      - "./dynamic_conf:/dynamic_conf:ro"
+      - "./acme.json:/acme.json"
+      - "./users_credentials:/users_credentials:ro"
+      - "traefik_logs:/var/log/traefik"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.tls.certresolver=lets-encr"
+      - "traefik.http.routers.traefik.tls.domains[0].main=*.$MY_DOMAIN"
+      - "traefik.http.routers.traefik.tls.domains[0].sans=$MY_DOMAIN"
+
+networks:
+  default:
+    external:
+      name: $DEFAULT_NETWORK
+
+volumes:
+  traefik_logs:

@@ -1,0 +1,41 @@
+## DYNAMIC CONFIGURATION (Loaded from /dynamic_conf)
+tls:
+  options:
+    default:
+      minVersion: VersionTLS12
+      cipherSuites:
+        - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+        - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+        - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
+        - TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
+
+http:
+  middlewares:
+    # Security Headers (HSTS, XSS, NoSniff, FrameDeny)
+    security-headers:
+      headers:
+        sslRedirect: true
+        stsSeconds: 31536000
+        stsIncludeSubdomains: true
+        stsPreload: true
+        browserXssFilter: true
+        contentTypeNosniff: true
+        forceSTSHeader: true
+        frameDeny: true
+        referrerPolicy: "strict-origin-when-cross-origin"
+        customFrameOptionsValue: "SAMEORIGIN"
+
+    # Rate Limiting (Average 100 req/s, Burst 50 req)
+    global-ratelimit:
+      rateLimit:
+        average: 100
+        burst: 50
+        period: 1s
+
+    # IP AllowList (LAN + VPN only)
+    internal-ip-allowlist:
+      ipAllowList:
+        sourceRange:
+          - "127.0.0.1/32"
+          - "192.168.1.0/24"
+          - "10.0.0.0/8"

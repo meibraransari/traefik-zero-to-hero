@@ -1,0 +1,16 @@
+## DYNAMIC TLS & MTLS CONFIGURATION
+tls:
+  certificates:
+    - certFile: /certs/server.crt
+      keyFile: /certs/server.key
+      stores:
+        - default
+
+  options:
+    # mTLS profile: Clients MUST present a valid cert signed by client-ca.crt
+    require-client-cert:
+      minVersion: VersionTLS13
+      clientAuth:
+        caFiles:
+          - /certs/client-ca.crt
+        clientAuthType: RequireAndVerifyClientCert

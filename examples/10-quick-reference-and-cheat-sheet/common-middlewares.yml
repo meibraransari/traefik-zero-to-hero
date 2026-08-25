@@ -1,0 +1,57 @@
+## DYNAMIC MIDDLEWARE LIBRARY
+# Place inside /dynamic_conf/common-middlewares.yml
+
+http:
+  middlewares:
+    # 1. Standard Production Security Headers
+    mw-security-headers:
+      headers:
+        sslRedirect: true
+        stsSeconds: 31536000
+        stsIncludeSubdomains: true
+        stsPreload: true
+        browserXssFilter: true
+        contentTypeNosniff: true
+        forceSTSHeader: true
+        frameDeny: true
+        referrerPolicy: "strict-origin-when-cross-origin"
+        customFrameOptionsValue: "SAMEORIGIN"
+
+    # 2. Rate Limiting: 100 req/sec with 50 burst
+    mw-rate-limit-standard:
+      rateLimit:
+        average: 100
+        burst: 50
+        period: 1s
+
+    # 3. Rate Limiting: Strict (Login / Auth endpoints)
+    mw-rate-limit-strict:
+      rateLimit:
+        average: 5
+        burst: 3
+        period: 1s
+
+    # 4. Gzip / Zstd Compression
+    mw-compress:
+      compress:
+        minResponseBodyBytes: 1024
+
+    # 5. IP Whitelist for Internal / Admin paths
+    mw-internal-only:
+      ipAllowList:
+        sourceRange:
+          - "127.0.0.1/32"
+          - "192.168.0.0/16"
+          - "10.0.0.0/8"
+
+    # 6. Retry on transient 5xx errors
+    mw-retry:
+      retry:
+        attempts: 3
+        initialInterval: 100ms
+
+    # 7. Request Buffering (DDoS protection for slow clients)
+    mw-buffering:
+      buffering:
+        maxRequestBodyBytes: 20971520 # 20MB
+        memRequestBodyBytes: 2097152   # 2MB

@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+  traefik:
+    image: "traefik:v2.11"
+    container_name: "traefik"
+    hostname: "traefik"
+    env_file:
+      - .env
+    ports:
+      - "80:80"
+      - "443:443"
+      - "5432:5432"       # PostgreSQL TCP entrypoint
+      - "6379:6379"       # Redis TCP entrypoint
+      - "25565:25565/udp" # UDP entrypoint
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./traefik.yml:/traefik.yml:ro"
+      - "./acme.json:/acme.json"
+
+networks:
+  default:
+    external:
+      name: $DEFAULT_NETWORK

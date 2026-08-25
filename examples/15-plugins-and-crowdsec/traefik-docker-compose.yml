@@ -1,0 +1,31 @@
+version: "3.7"
+
+services:
+  traefik:
+    image: "traefik:v2.11"
+    container_name: "traefik"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./traefik.yml:/traefik.yml:ro"
+      - "./dynamic_conf:/dynamic_conf:ro"
+
+  crowdsec:
+    image: "crowdsecurity/crowdsec:latest"
+    container_name: "crowdsec"
+    environment:
+      - COLLECTIONS=crowdsecurity/traefik crowdsecurity/http-cve
+    volumes:
+      - "crowdsec_data:/var/lib/crowdsec/data"
+      - "crowdsec_config:/etc/crowdsec"
+
+networks:
+  default:
+    external:
+      name: $DEFAULT_NETWORK
+
+volumes:
+  crowdsec_data:
+  crowdsec_config:

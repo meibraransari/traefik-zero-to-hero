@@ -1,0 +1,50 @@
+version: "3.7"
+
+services:
+  whoami:
+    image: "traefik/whoami"
+    container_name: "whoami"
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.entrypoints=websecure"
+      - "traefik.http.routers.whoami.rule=Host(`whoami.$MY_DOMAIN`)"
+      - "traefik.http.routers.whoami.tls.certresolver=lets-encr"
+      - "traefik.http.routers.whoami.middlewares=sec-headers"
+      # Security Headers
+      - "traefik.http.middlewares.sec-headers.headers.stsSeconds=31536000"
+      - "traefik.http.middlewares.sec-headers.headers.stsIncludeSubdomains=true"
+      - "traefik.http.middlewares.sec-headers.headers.browserXssFilter=true"
+      - "traefik.http.middlewares.sec-headers.headers.contentTypeNosniff=true"
+
+  nginx:
+    image: "nginx:alpine"
+    container_name: "nginx"
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nginx.entrypoints=websecure"
+      - "traefik.http.routers.nginx.rule=Host(`nginx.$MY_DOMAIN`)"
+      - "traefik.http.routers.nginx.tls.certresolver=lets-encr"
+
+  portainer:
+    image: "portainer/portainer-ce:latest"
+    container_name: "portainer"
+    restart: unless-stopped
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "portainer_data:/data"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.portainer.entrypoints=websecure"
+      - "traefik.http.routers.portainer.rule=Host(`portainer.$MY_DOMAIN`)"
+      - "traefik.http.routers.portainer.tls.certresolver=lets-encr"
+      - "traefik.http.services.portainer.loadbalancer.server.port=9000"
+
+networks:
+  default:
+    external:
+      name: $DEFAULT_NETWORK
+
+volumes:
+  portainer_data:

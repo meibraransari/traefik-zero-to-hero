@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+  backend-app:
+    image: "traefik/whoami"
+    container_name: "backend-app"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.backend-app.entrypoints=websecure"
+      - "traefik.http.routers.backend-app.rule=Host(`backend.$MY_DOMAIN`)"
+      - "traefik.http.routers.backend-app.tls.certresolver=lets-encr"
+      # Sticky Sessions (Cookie)
+      - "traefik.http.services.backend-app.loadbalancer.sticky.cookie=true"
+      - "traefik.http.services.backend-app.loadbalancer.sticky.cookie.name=lb_session"
+      # Active Health Check
+      - "traefik.http.services.backend-app.loadbalancer.healthcheck.path=/health"
+      - "traefik.http.services.backend-app.loadbalancer.healthcheck.interval=10s"
+      - "traefik.http.services.backend-app.loadbalancer.healthcheck.timeout=3s"
+
+networks:
+  default:
+    external:
+      name: $DEFAULT_NETWORK

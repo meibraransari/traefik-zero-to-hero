@@ -1,0 +1,36 @@
+version: "3.7"
+
+services:
+  authelia:
+    image: "authelia/authelia:latest"
+    container_name: "authelia"
+    restart: unless-stopped
+    volumes:
+      - "./authelia-configuration.yml:/config/configuration.yml:ro"
+    environment:
+      - TZ=UTC
+    labels:
+      - "traefik.enable=true"
+      # Authelia Login Portal Route
+      - "traefik.http.routers.authelia.entrypoints=websecure"
+      - "traefik.http.routers.authelia.rule=Host(`auth.$MY_DOMAIN`)"
+      - "traefik.http.routers.authelia.tls.certresolver=lets-encr"
+      # ForwardAuth Middleware Definition
+      - "traefik.http.middlewares.authelia-auth.forwardauth.address=http://authelia:9091/api/verify?rd=https://auth.$MY_DOMAIN/"
+      - "traefik.http.middlewares.authelia-auth.forwardauth.trustForwardHeader=true"
+      - "traefik.http.middlewares.authelia-auth.forwardauth.authResponseHeaders=Remote-User,Remote-Groups,Remote-Name,Remote-Email"
+
+  protected-whoami:
+    image: "traefik/whoami"
+    container_name: "protected-whoami"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.entrypoints=websecure"
+      - "traefik.http.routers.whoami.rule=Host(`whoami.$MY_DOMAIN`)"
+      - "traefik.http.routers.whoami.tls.certresolver=lets-encr"
+      - "traefik.http.routers.whoami.middlewares=authelia-auth"
+
+networks:
+  default:
+    external:
+      name: $DEFAULT_NETWORK
