@@ -12,5 +12,5 @@ services:
 
 networks:
   default:
-    name: 
+    name: ${DEFAULT_NETWORK:-traefik-public}
     external: true
