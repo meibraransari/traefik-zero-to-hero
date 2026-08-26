@@ -56,6 +56,7 @@ labels:
 **1. Start the Stack**
 Open your terminal in this chapter's folder and run:
 ```bash
+docker network create traefik
 docker compose -f traefik-docker-compose.yml up -d
 docker compose -f whoami-docker-compose.yml up -d
 ```
