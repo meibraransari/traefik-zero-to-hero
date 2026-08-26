@@ -43,23 +43,41 @@ Middlewares are pieces of logic that modify a request before it hits your servic
 
 ---
 
+```
+traefik.yml
+    │
+    ├── Docker provider
+    │      └── Docker labels
+    │             └── whoami router
+    │                    └── auth-middleware
+    │
+    └── File provider
+           └── dynamic_conf/
+                  └── external-app.yml
+                         └── external server
+
+```
+
 ## ⚙️ Configuration Setup
 
 ### Step 1 — Generate a Password Hash
 Traefik requires hashed passwords (`htpasswd`). Generate one:
+create a new file - users_credentials containing username:passwords pairs, htpasswd style
 ```bash
-echo $(htpasswd -nB user) | sed -e s/\\$/\\$\\$/g
+apt install apache2-utils -y
+htpasswd -Bbn admin 'MySecretPassword123' >> users_credentials # replace user name and password
 ```
 
 ### Step 2 — Define the Middleware
 ```yaml
 labels:
   - "traefik.enable=true"
-  - "traefik.http.routers.my-app.rule=Host(`app.example.com`)"
-  # 1. Define the middleware
-  - "traefik.http.middlewares.my-auth.basicauth.users=user:$$2y$$05$$..."
-  # 2. Apply it to the router
-  - "traefik.http.routers.my-app.middlewares=my-auth"
+  - "traefik.http.routers.whoami.entrypoints=web"
+  - "traefik.http.routers.whoami.rule=Host(`whoami.$MY_DOMAIN`)"
+    # 1. Define the middleware
+  - "traefik.http.routers.whoami.middlewares=auth-middleware"
+    # 2. Apply it to the router
+  - "traefik.http.middlewares.auth-middleware.basicauth.usersfile=/users_credentials"
 ```
 
 ---
@@ -68,8 +86,11 @@ labels:
 
 **1. Start the Stack**
 ```bash
+cp -a .env.example .env
 docker compose -f traefik-docker-compose.yml up -d
+# users_credentials already mounted in above compose file
 docker compose -f whoami-docker-compose.yml up -d
+# Middleware already configured in above compose file
 ```
 
 **2. Test the Authentication**
@@ -77,6 +98,18 @@ Open your browser and navigate to `http://whoami.example.com` (Ensure your `/etc
 - A popup will appear asking for a Username and Password!
 - Enter the credentials defined in the labels (or the `users_credentials` file).
 - E.g., Username: `user`, Password: `password`
+
+```
+curl -i -H "Host: whoami.example.com" http://127.0.0.1
+# You should get something like:
+# HTTP/1.1 401 Unauthorized
+
+# Change password with your passsword.
+curl -i -u admin:YOUR_PASSWORD \
+  -H "Host: whoami.example.com" \
+  http://127.0.0.1
+# You should then get the whoami response.
+```
 
 **3. Teardown**
 ```bash
