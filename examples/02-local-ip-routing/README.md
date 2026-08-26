@@ -65,6 +65,7 @@ http:
 **1. Start the Stack**
 Open your terminal in this chapter's folder and run:
 ```bash
+cp -a .env.example .env
 docker compose -f traefik-docker-compose.yml up -d
 ```
 
