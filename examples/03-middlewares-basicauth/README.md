@@ -43,20 +43,6 @@ Middlewares are pieces of logic that modify a request before it hits your servic
 
 ---
 
-```
-traefik.yml
-    │
-    ├── Docker provider
-    │      └── Docker labels
-    │             └── whoami router
-    │                    └── auth-middleware
-    │
-    └── File provider
-           └── dynamic_conf/
-                  └── external-app.yml
-                         └── external server
-
-```
 
 ## ⚙️ Configuration Setup
 
