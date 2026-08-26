@@ -1,4 +1,7 @@
 ## STATIC CONFIGURATION
+core:
+  defaultRuleSyntax: v2
+
 log:
   level: INFO
 

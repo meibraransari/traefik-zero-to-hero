@@ -1,4 +1,7 @@
 ## STATIC CONFIGURATION WITH CROWDSEC BOUNCER PLUGIN
+core:
+  defaultRuleSyntax: v2
+
 log:
   level: INFO
 

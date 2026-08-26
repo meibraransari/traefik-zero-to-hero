@@ -1,4 +1,7 @@
 ## STATIC CONFIGURATION WITH FILE PROVIDER FOR ADVANCED DYNAMIC CONFIG
+core:
+  defaultRuleSyntax: v2
+
 log:
   level: INFO
 

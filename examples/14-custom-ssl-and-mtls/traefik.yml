@@ -1,4 +1,7 @@
 ## STATIC CONFIGURATION WITH FILE-BASED CUSTOM SSL & MTLS
+core:
+  defaultRuleSyntax: v2
+
 log:
   level: INFO
 
