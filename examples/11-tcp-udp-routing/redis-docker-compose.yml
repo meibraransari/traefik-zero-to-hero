@@ -1,5 +1,3 @@
-version: "3.7"
-
 services:
   redis:
     image: "redis:7-alpine"
@@ -13,5 +11,5 @@ services:
 
 networks:
   default:
-    external:
-      name: $DEFAULT_NETWORK
+    name: 
+    external: true
