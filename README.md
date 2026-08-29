@@ -1,6 +1,12 @@
 # 🚀 Traefik — Zero to Hero Guide
 
-> **A complete, offline-first, example-driven learning curriculum to master Traefik v2 & v3**  
+<div align="center">
+
+**A complete, offline-first, example-driven learning curriculum to master Traefik v2 & v3**
+
+[![GitHub Repository](https://img.shields.io/badge/GitHub-markdown--manager-blue?style=for-the-badge&logo=github)](https://github.com/meibraransari/markdown-manager.git)
+
+</div>
 
 ![Traefik Architecture](./images/traefik_architecture_overview.jpg)
 
@@ -46,40 +52,28 @@ Before starting, ensure you have:
 
 ---
 
-## 📁 Offline Example Files Directory
+## 🤝 Contributing
 
-All complete configuration stacks and tools are organized offline in [`docs/examples/`](./examples/):
+Contributions are welcome! Please see the detailed guidelines in [CONTRIBUTING.md](CONTRIBUTING.md).
 
-- [`00-what-is-traefik/`](./examples/00-what-is-traefik/) — Core concepts, pipeline architecture & overview
-- [`01-docker-routing/`](./examples/01-docker-routing/) — Basic Docker container routing & discovery
-- [`02-local-ip-routing/`](./examples/02-local-ip-routing/) — Dynamic file provider for non-Docker / LAN hosts
-- [`03-middlewares-basicauth/`](./examples/03-middlewares-basicauth/) — BasicAuth middleware with htpasswd credentials
-- [`04-letsencrypt-http-challenge/`](./examples/04-letsencrypt-http-challenge/) — ACME HTTP-01 automated SSL certificates
-- [`05-letsencrypt-dns-challenge-cloudflare/`](./examples/05-letsencrypt-dns-challenge-cloudflare/) — ACME DNS-01 Wildcard SSL (*.domain.com)
-- [`06-http-to-https-redirect/`](./examples/06-http-to-https-redirect/) — Global HTTP to HTTPS redirection
-- [`07-production-ready-stack/`](./examples/07-production-ready-stack/) — Full production stack (Dashboard auth + Wildcard)
-- [`08-advanced-configuration/`](./examples/08-advanced-configuration/) — Advanced TLS options, headers, rate limits, health checks
-- [`09-troubleshooting-and-diagnostics/`](./examples/09-troubleshooting-and-diagnostics/) — Diagnostic configs, ACME inspector & test scripts
-- [`10-quick-reference-and-cheat-sheet/`](./examples/10-quick-reference-and-cheat-sheet/) — Master label cheat sheet & boilerplate templates
-- [`11-tcp-udp-routing/`](./examples/11-tcp-udp-routing/) — TCP/UDP non-HTTP routing (PostgreSQL, Redis, SNI)
-- [`12-observability-metrics-tracing/`](./examples/12-observability-metrics-tracing/) — Prometheus metrics, Jaeger tracing, access logs
-- [`13-sso-forwardauth-authelia/`](./examples/13-sso-forwardauth-authelia/) — Authelia 2FA/SSO ForwardAuth integration
-- [`14-custom-ssl-and-mtls/`](./examples/14-custom-ssl-and-mtls/) — Custom commercial certs & Mutual TLS client auth
-- [`15-plugins-and-crowdsec/`](./examples/15-plugins-and-crowdsec/) — Traefik plugins & CrowdSec intrusion prevention
-- [`16-http3-quic-and-brotli/`](./examples/16-http3-quic-and-brotli/) — Traefik v3 HTTP/3 and Brotli compression
-- [`17-canary-and-mirroring/`](./examples/17-canary-and-mirroring/) — Weighted load balancing and traffic shadowing
-- [`18-tailscale-integration/`](./examples/18-tailscale-integration/) — Native Tailscale SSL and zero-trust VPN mesh routing
-- [`19-kubernetes-ingressroute/`](./examples/19-kubernetes-ingressroute/) — Kubernetes CRD deployments (IngressRoute, Middleware)
+For a quick summary:
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feat/my-feature`
+3. Commit your changes following [Conventional Commits](https://www.conventionalcommits.org/)
+4. Push to the branch and open a Pull Request
 
 ---
 
-## 🖼️ Architectural Diagrams Reference
+## 📄 License
 
-All high-resolution technical diagrams are available offline in [`docs/images/`](./images/):
+MIT License — see [LICENSE.md](LICENSE.md) for details.
 
-- `traefik_architecture_overview.jpg` — System architecture overview
-- `traefik_core_concepts.jpg` — 4 core building blocks (EntryPoints, Routers, Middlewares, Services)
-- `traefik_routing_flow.jpg` — Step-by-step request lifecycle
-- `traefik_middleware_basicauth.jpg` — Middleware execution flow and authentication gate
-- `traefik_lets_encrypt_http.jpg` — ACME HTTP-01 challenge verification flow
-- `traefik_lets_encrypt_dns.jpg` — ACME DNS-01 wildcard challenge with Cloudflare
+---
+
+<div align="center">
+
+Made with ❤️ for the self-hosting community
+
+**[What is Traefik?](./examples/00-what-is-traefik/README.md) · [Docker Routing](./examples/01-docker-routing/README.md) · [Production Stack](./examples/07-production-ready-stack/README.md) · [Cheat Sheet](./examples/10-quick-reference-and-cheat-sheet/README.md)**
+
+</div>
